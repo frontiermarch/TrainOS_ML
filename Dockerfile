@@ -13,8 +13,8 @@ RUN pip install --upgrade pip
 # Install dependencies
 RUN pip install -r requirements.txt
 
-# Expose port for Render
-EXPOSE 10000
+# Expose port (optional, for clarity)
+EXPOSE 5000
 
-# Command to run your app
-CMD ["gunicorn", "app:app", "-b", "0.0.0.0:10000"]
+# Command to run the app using Render's PORT env
+CMD ["sh", "-c", "gunicorn app:app -b 0.0.0.0:${PORT:-5000} -w 4"]
